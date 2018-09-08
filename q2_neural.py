@@ -50,12 +50,12 @@ def forward_backward_prop(X, labels, params, dimensions):
 
     ### YOUR CODE HERE: backward propagation
     dy = y_pred - labels
-    dW2 = np.dot(a1.T, dy)
-    db2 = np.sum(dy, axis = 0)
+    gradW2 = np.dot(a1.T, dy)
+    gradb2 = np.sum(dy, axis = 0)
     da1 = np.dot(dy, W2.T)
     dz1 = sigmoid_grad(a1) * da1
-    dW1 = np.dot(X.T, dz1)
-    db1 = np.sum(dz1, axis = 0)
+    gradW1 = np.dot(X.T, dz1)
+    gradb1 = np.sum(dz1, axis = 0)
     ### END YOUR CODE
 
     ### Stack gradients (do not modify)
@@ -76,7 +76,7 @@ def sanity_check():
     dimensions = [10, 5, 10]
     data = np.random.randn(N, dimensions[0])   # each row will be a datum
     labels = np.zeros((N, dimensions[2]))
-    for i in xrange(N):
+    for i in range(N):
         labels[i, random.randint(0,dimensions[2]-1)] = 1
 
     params = np.random.randn((dimensions[0] + 1) * dimensions[1] + (
